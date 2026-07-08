@@ -48,10 +48,13 @@ choice.
 | `<E2E>` | End-to-end / browser testing | Playwright · Cypress · none | TBD |
 | `<REGISTRY>` | Artifact / container registry + versioning scheme | `<VCS>`-host registry · dedicated registry · none | TBD |
 
-Two map facts worth recording alongside the choices: how "green" is *actually* read on
-`<CI>` (result flag alone, or result + a test-count check — pipelines that soft-fail test
-stages make "not red" hide failures), and which steps stay **human-gated regardless of
-the agent's access** (capability ≠ permission; see the release procedure).
+Four map facts worth recording alongside the choices (the onboarding interview pins the
+full list): how "green" is *actually* read on `<CI>` (result flag alone, or result + a
+test-count check — pipelines that soft-fail test stages make "not red" hide failures),
+**how the agent reads `<CI>` results** (API + token, MCP, `<VCS>` commit statuses, or
+human-mediated), which steps stay **human-gated regardless of the agent's access**
+(capability ≠ permission; see the release procedure), and **where `<QUALITY>` analyses
+land** (per-branch or one shared slot; how many analysed projects).
 
 ## The loop
 
