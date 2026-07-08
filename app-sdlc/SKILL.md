@@ -6,7 +6,7 @@ description: Use when adopting a disciplined SDLC on a project (first act — th
 # app-sdlc — tool-agnostic SDLC orchestrator (template)
 
 This is the **orchestrator** for how a project builds software. It does not do the work
-itself — it tells you which discipline drives each stage and how the stages connect.
+itself — it names which discipline drives each stage and how the stages connect.
 Stage procedures live in `references/` (index at the bottom) — read each when its stage
 arrives, not before.
 
@@ -116,11 +116,11 @@ A written ticket is a snapshot of intent at creation time, not ground truth. Bef
 authoring the plan doc for an existing ticket, grill it against today's code, the
 in-flight PRs, and module ownership. Full procedure: `references/ticket-intake-gate.md`.
 
-## Skill-routing gate (mandatory — load *before* you write)
+## Skill-routing gate (mandatory — load *before* writing)
 
-> This is a **gate, not a suggestion.** Before you author a plan section or a line of
-> code for an area, you **MUST load that area's skill(s) first** and **announce which you
-> loaded**. One ticket usually trips several rows. Skipping a row — writing the artifact
+> This is a **gate, not a suggestion.** Before authoring a plan section or a line of
+> code for an area, **load that area's skill(s) first (MUST)** and **announce which ones
+> were loaded**. One ticket usually trips several rows. Skipping a row — writing the artifact
 > first, loading the skill after — is a process miss the review gate flags.
 
 The routing table itself is project-specific: it is **seeded at onboarding from the
@@ -147,7 +147,7 @@ the skeleton rows every project has some version of:
    structure + `git diff --stat`, not memory. A mixed-scope ticket almost always trips
    several rows — load all of them.
 2. **Load + announce.** Load each triggered skill *before* authoring that part and say so
-   out loud. If you wrote the artifact before loading the row, the gate already failed —
+   out loud. If the artifact was written before loading the row, the gate already failed —
    redo it. **If a triggered row has no project skill yet, search for an existing one
    first** (harness available-skills list, user-global `~/.claude/skills`, plugins, other
    adopted projects) before creating — a match is a **map / extend / create** decision for
