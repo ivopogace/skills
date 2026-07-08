@@ -122,3 +122,7 @@ git clone https://github.com/ivopogace/skills.git ~/.claude/skills
 Then run the onboarding interview (see
 [`references/onboarding-interview.md`](app-sdlc/references/onboarding-interview.md)) in a
 target project to bind the template to that repo.
+
+## License
+
+Released under the [MIT License](LICENSE).
