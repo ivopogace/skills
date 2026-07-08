@@ -52,12 +52,18 @@ Ask slot by slot, in dependency order (`<VCS>` first — its answer sets the def
 incident`; `<DESIGN>: none → "who owns UX?" is a standing refine question`). An empty
 cell and a considered "none" are different states.
 
-Three extra facts to pin during the interview (they live under the map in `SKILL.md`):
+Four extra facts to pin during the interview (they live under the map in `SKILL.md`):
 
 - **What "green" means on `<CI>`** — result flag alone, or result + explicit
   failed-test-count check. Ask to see the pipeline config: a pipeline that soft-fails
   test stages (`|| true`, `continue-on-error`) makes "not red" hide failures, and the
   CI-gate rule must say so.
+- **How the agent reads `<CI>` results** — direct API + token, an MCP server, commit
+  statuses on `<VCS>` (e.g. PR checks), or human-mediated (no access bound: the agent
+  stops and asks for the build result instead of assuming green). Check what the harness
+  actually exposes, don't assume. The chosen path must be able to satisfy the recorded
+  green definition — a VCS status flag alone cannot prove "0 failed tests" when the
+  pipeline soft-fails test stages.
 - **Which steps stay human-gated regardless of the agent's access** — capability ≠
   permission. Default: everything in the release procedure's deploy stage, plus anything
   the user names. Write the list down; "the agent could, therefore the agent may" is the
