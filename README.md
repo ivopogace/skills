@@ -1,16 +1,35 @@
-# skills
+# app-sdlc
 
 > Replaces a pile of loosely-connected, install-and-forget skills with a single orchestrated
 > lifecycle that wires each stage to the right discipline and binds to *your* actual tools and
 > workflow instead of assuming a fixed stack.
 
-Personal [Claude Code](https://claude.com/claude-code) skills used by Ivo Pogace. The repo
-ships as a **Claude Code plugin** (and doubles as its own plugin marketplace): each
-subdirectory of `skills/` is one skill with a `SKILL.md` (YAML frontmatter: `name`,
-`description`), auto-discovered once the plugin is installed.
+`app-sdlc` is a tool-agnostic **software-development-lifecycle orchestrator** for
+[Claude Code](https://claude.com/claude-code) — and any agent that reads `SKILL.md` skills.
+This repo ships it two ways: as a Claude Code **plugin** (the repo doubles as its own plugin
+marketplace) and as a plain skills repo installable with the
+[`skills` CLI](https://github.com/vercel-labs/skills). It is the personal skills repo of
+Ivo Pogace (each subdirectory of `skills/` is one skill), but today it is effectively one
+thing: the [`app-sdlc`](skills/app-sdlc/SKILL.md) suite, which the rest of this README
+describes.
 
-Today this repo is effectively **one thing: the software development lifecycle** — the
-[`app-sdlc`](skills/app-sdlc/SKILL.md) suite. The rest of this README describes that lifecycle.
+## Quick start
+
+From the root of the project that should adopt the lifecycle:
+
+```bash
+claude plugin marketplace add ivopogace/skills
+claude plugin install app-sdlc@ivopogace-skills --scope project
+```
+
+or, for any agent via the skills CLI (prompts for user vs. project scope):
+
+```bash
+npx skills add ivopogace/skills
+```
+
+Then ask Claude to **"adopt app-sdlc"** — the onboarding interview binds the tooling map to
+your repo. Details and team setup in [Installing](#installing).
 
 ## What makes it different
 
@@ -20,7 +39,7 @@ closes the loop, and binds to **your** tools.
 - **Orchestrator, not a pile.** The hard, unsolved part isn't having a handful of good skills
   — it's the connective tissue: which discipline drives each stage, how a review finding gets
   back into code, what "done" means. `app-sdlc` is *one orchestrator + six stage references*
-  that encode the loop itself, not another bag of leaves.
+  that encode the loop itself, not another flat collection of standalone skills.
 - **It binds to your stack — it doesn't assume one.** A **13-slot tooling map** and an
   onboarding interview bind every `<TOKEN>` (`<VCS>`, `<CI>`, `<TRACKER>`, …) to whatever you
   actually use — Jira + Jenkins + GitLab + SonarQube + Confluence, or GitHub-native
@@ -40,23 +59,24 @@ closes the loop, and binds to **your** tools.
 
 ## The lifecycle in one picture
 
+```mermaid
+flowchart LR
+    RF[refine] --> TK[ticket] --> PL[plan] --> IM[implement] --> CI{CI gate}
+    CI --> PR[PR] --> RV{review gate} --> QG{quality gate} --> MG[merge] --> DC[document]
+    RV -. findings .-> IM
+    QG -. findings .-> IM
+    TK -. stale ticket: intake grill .-> RF
+    PL -. stale plan: resume or mainline drift .-> RF
+    MG -. release due .-> RD[release-deploy: off-loop, batches merged tickets]
 ```
-   stale intent → re-refine: ticket (intake grill) · plan (resume / mainline drift)
-┌┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┐   (dashed = conditional feedback, not the default path)
-▼                  ┆
-refine → ticket → plan → implement → CI gate → PR → review → quality gate → merge → document
-                            ▲                                                  ┆
-                            └┄┄┄┄┄ findings re-enter (review AND quality) ┄┄┄┄┄┘
 
-release-deploy: an off-loop procedure, invoked when a release is due (batches merged tickets)
-```
-
-**Solid = the path every ticket takes; dashed = conditional feedback.** The **stale-intent
-edge** fires when an existing **ticket** is stale (the intake-grill gate) *or* a **plan** is
+**Solid = the path every ticket takes; dotted = conditional feedback.** The **stale-intent
+edges** fire when an existing **ticket** is stale (the intake-grill gate) *or* a **plan** is
 found stale on resume / after mainline drift — either sends you back to re-refinement (fix
 the intent, update the ticket/spec) before more planning or code; fresh, well-formed work
 flows straight through. Review/quality **findings re-enter at Implement** only when there
-are findings.
+are findings. **release-deploy** sits off the loop: a runbook invoked when a release is
+due, batching the tickets merged since the last one.
 
 Every tool in the diagram is a slot in the **13-slot tooling map** (`<VCS>`, `<CI>`,
 `<TRACKER>`, `<QUALITY>`, `<DOCS>`, `<MIGRATIONS>`, `<DEPLOY>`, `<DESIGN>`, `<AREAS>`,
@@ -67,12 +87,12 @@ interview that fills the map from repo evidence + human decisions.
 
 | Stage | What happens |
 |---|---|
-| **Refine** | Sharpen a fuzzy idea into a precise, sliceable change, grounded in the code. Produces the **spec** (source-of-intent). |
+| **Refine** | Sharpen a fuzzy idea into a precise, sliceable change, grounded in the code. Produces the **spec** — the committed statement of intent ("source-of-intent") that governs the change. |
 | **Ticket** | Create/update the tracker ticket with testable acceptance criteria; branch `feature/<ID>-<slug>`. |
 | **Plan** | Plan doc: testable ACs, risk register, open questions. Phase decomposition is **human-gated**. Existing ticket → **intake-grill gate** first. |
 | **Implement** | Build **test-first**, one behavior at a time, under the **skill-routing gate**. |
-| **CI gate** | Builds per push; "green" means the map's recorded definition (result **plus** zero hidden failed tests). |
-| **PR → Review → Quality gate → Merge** | Three mandatory gates before merge (below). |
+| **CI gate** | Builds per push; "green" is whatever the tooling map records as the definition — passing result **plus** zero hidden failed tests. |
+| **PR → Review → Quality gate → Merge** | Three mandatory gates before merge — see [the three non-negotiable gates](#the-three-non-negotiable-gates). |
 | **Document** | Ticket documentation, unconditionally — part of every ticket's definition of done. |
 
 ## The three non-negotiable gates
@@ -122,52 +142,83 @@ yet), and hotfixes take lighter paths. The full ceremony is for real, sliceable 
 | [`references/release-deploy.md`](skills/app-sdlc/references/release-deploy.md) | Off-loop batched-release runbook (human-gated). |
 | [`references/growing-area-skills.md`](skills/app-sdlc/references/growing-area-skills.md) | How stage-driver and area skills grow, and the discover-before-create rule. |
 
-`app-sdlc` is a **template**: it is the generalized skeleton lifted from a concrete,
-fully project-bound SDLC suite. It is adopted **per project** (its onboarding interview
-binds the map, seeds the routing table, and grows the project's own skills), so the copy
-here stays tool-agnostic while each project carries its own bound instance.
+`app-sdlc` is a **template**: the generalized skeleton lifted from a concrete, fully
+project-bound SDLC suite. What you install carries the loop, gates, and stage disciplines,
+but no project-specific tools or area skills — every `<TOKEN>` stays a placeholder until
+you **adopt it per project**: the onboarding interview fills the 13-slot tooling map from
+repo evidence, seeds the routing table, and grows the project's own skills on first
+contact. The copy here stays tool-agnostic while each project carries its own bound
+instance.
 
 ## Installing
 
-`app-sdlc` ships as a **tool-agnostic template**, not a ready-to-run bound instance — it
-carries the loop, gates, and stage disciplines, but no project-specific tools or area
-skills. Install it, then **adopt it per project**: its onboarding interview fills the
-13-slot tooling map from repo evidence, seeds the routing table, and grows the project's
-own skills on first contact. Every `<TOKEN>` stays a placeholder until you bind it.
+Requires a Claude Code recent enough to have plugin marketplaces (`/plugin`), or any agent
+supported by the [`skills` CLI](https://github.com/vercel-labs/skills). Either way you are
+installing the **template** — nothing runs against real tools until you
+[adopt it per project](#adopt-per-project).
 
-### As a plugin (recommended)
+### As a Claude Code plugin (recommended)
 
-The repo is its own plugin marketplace. In Claude Code:
-
-```
-/plugin marketplace add ivopogace/skills
-/plugin install app-sdlc@ivopogace-skills
-```
-
-Or non-interactively:
+The repo is its own plugin marketplace. Since `app-sdlc` binds per project, install it at
+**project scope**, from the root of the adopting project:
 
 ```bash
 claude plugin marketplace add ivopogace/skills
-claude plugin install app-sdlc@ivopogace-skills
+claude plugin install app-sdlc@ivopogace-skills --scope project
 ```
 
-The skill is then available as `app-sdlc:app-sdlc` and triggers automatically from its
-description. `claude plugin marketplace update ivopogace-skills` pulls newer versions.
+To share it with the repo's collaborators:
 
-### Manual (personal skills directory)
+1. The install above writes `"enabledPlugins": { "app-sdlc@ivopogace-skills": true }`
+   into the repo's `.claude/settings.json`.
+2. Add the marketplace source to the same file — the install records only the plugin,
+   not where to fetch it from:
 
-Clone anywhere and copy (or symlink) the skill into `~/.claude/skills/`:
+   ```json
+   {
+     "extraKnownMarketplaces": {
+       "ivopogace-skills": {
+         "source": { "source": "github", "repo": "ivopogace/skills" }
+       }
+     },
+     "enabledPlugins": { "app-sdlc@ivopogace-skills": true }
+   }
+   ```
+
+3. Commit `.claude/settings.json`. Anyone who trusts the folder is then prompted to
+   install the plugin.
+
+Prefer a personal install across all your projects? Use `--scope user`, or run
+`/plugin install app-sdlc@ivopogace-skills` inside Claude Code, which asks for a scope
+interactively (user / project / local). Once installed, the skill is available as
+`app-sdlc:app-sdlc` and triggers automatically from its description.
+
+### With the skills CLI (any agent)
+
+The [`skills` CLI](https://github.com/vercel-labs/skills) installs plain copies of the
+skill into whatever agents you use (Claude Code, Cursor, Codex, …) and prompts for
+**user or project scope**:
 
 ```bash
-git clone https://github.com/ivopogace/skills.git
-cp -r skills/skills/app-sdlc ~/.claude/skills/app-sdlc
+npx skills add ivopogace/skills
 ```
 
-### Then: adopt per project
+This copies `skills/app-sdlc/` (the `SKILL.md` plus its `references/`) into the agent's
+skills directory — e.g. `.claude/skills/app-sdlc` (project) or `~/.claude/skills/app-sdlc`
+(user). The same layout can be copied by hand if you prefer.
+
+### Updating
+
+- Plugin: `claude plugin marketplace update ivopogace-skills` — the plugin carries no
+  pinned version, so every push to `main` is an update.
+- skills CLI: `npx skills update`.
+
+### Adopt per project
 
 Run the onboarding interview (see
 [`references/onboarding-interview.md`](skills/app-sdlc/references/onboarding-interview.md))
-in a target project to bind the template to that repo.
+in the target project to bind the template to that repo — this is the suite's first act,
+and `app-sdlc` will insist on it before driving any stage whose tooling slot is unbound.
 
 ## License
 
