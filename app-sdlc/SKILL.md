@@ -1,6 +1,6 @@
 ---
 name: app-sdlc
-description: Use when adopting a disciplined SDLC on a project (first act — the tooling-map onboarding interview), or when starting or continuing feature work in a repo that has adopted app-sdlc — refining a fuzzy idea, creating or picking up a ticket, planning or implementing a change, reacting to CI or quality-gate findings, opening or merging a PR, documenting a merged ticket, or preparing a release. Also use when the user asks how we work in this repo.
+description: This skill should be used when adopting a disciplined SDLC on a project (first act — the tooling-map onboarding interview), or when starting or continuing feature work in a repo that has adopted app-sdlc — refining a fuzzy idea, creating or picking up a ticket, planning or implementing a change, reacting to CI or quality-gate findings, opening or merging a PR, documenting a merged ticket, or preparing a release. Also use when the user asks how we work in this repo.
 ---
 
 # app-sdlc — tool-agnostic SDLC orchestrator (template)
