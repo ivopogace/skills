@@ -39,14 +39,9 @@ sequences the lifecycle, closes the loop, and binds to **your** tools.
   *discover-before-create* step will happily **map an area to an existing library skill** —
   install both, and let `app-sdlc` load the right `agent-skills` skill at the right stage.
 
-| | Skills library (e.g. `agent-skills`) | `app-sdlc` |
-|---|---|---|
-| **Shape** | 24 discrete skills you pick from | 1 orchestrator + 6 stage references |
-| **Gives you** | Ready-made workflows, off the shelf | The wiring: stage→discipline→stage, gates, re-entry |
-| **Tools** | Encodes a stack | Binds to *your* stack via an onboarding interview |
-| **Growth** | Full surface on day one | Grows per-area on first contact |
-| **Best when** | You want breadth now, low setup | You want one closed lifecycle fitted to your repo |
-| **Together** | — | Can route to a library's skills as area skills |
+**How they fit together:** a library supplies the ready-made skills; `app-sdlc` supplies the
+lifecycle that decides when each one runs and how findings loop back — point its routing gate
+at a library and the two work as one.
 
 **When a library is the better call:** if you want batteries-included skills to drop in and
 use in five minutes, install a library — `agent-skills` is excellent for exactly that.
