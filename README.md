@@ -11,6 +11,49 @@ is one skill with a `SKILL.md` (YAML frontmatter: `name`, `description`).
 Today this repo is effectively **one thing: the software development lifecycle** — the
 [`app-sdlc`](app-sdlc/SKILL.md) suite. The rest of this README describes that lifecycle.
 
+## Why this instead of a skills library?
+
+Excellent skills libraries already exist — [`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills)
+is the archetype: a curated collection of ready-made lifecycle skills you install off the
+shelf. `app-sdlc` is **not another library, and not a competitor to one** — it's the layer
+above. A library hands you the *instruments*; `app-sdlc` is the *conductor*: the wiring that
+sequences the lifecycle, closes the loop, and binds to **your** tools.
+
+- **Orchestrator, not a pile.** The hard, unsolved part isn't having 24 good skills — it's
+  the connective tissue: which discipline drives each stage, how a review finding gets back
+  into code, what "done" means. `app-sdlc` is *one orchestrator + six stage references* that
+  encode the loop itself, not another bag of leaves.
+- **It binds to your stack — it doesn't assume one.** Ready-made skills encode the author's
+  stack (GitHub, trunk-based, a specific CI). Real teams run Jira + Jenkins + GitLab +
+  SonarQube + Confluence. A **13-slot tooling map** and an onboarding interview bind every
+  `<TOKEN>` to whatever you actually use — same discipline, your tools.
+- **It grows on first contact.** No 24 files dumped on day one that you didn't write and
+  don't fully trust. The suite ships only the loop, gates, and disciplines; area skills grow
+  **one at a time from real work**, each a deliberate *discover → map / extend / create*
+  decision. You end up knowing exactly what's in your setup and why.
+- **The loop actually closes.** Most skill sets leak on the way back: a "tiny" review fix
+  skips the discipline. The signature **re-entry rule** — *a fix is a change; it re-enters at
+  Implement* (routing gate, test-first, re-review) regardless of size — is the hardest
+  discipline to hold and the easiest to drop.
+- **It composes with libraries.** These aren't either/or. The routing gate's
+  *discover-before-create* step will happily **map an area to an existing library skill** —
+  install both, and let `app-sdlc` load the right `agent-skills` skill at the right stage.
+
+| | Skills library (e.g. `agent-skills`) | `app-sdlc` |
+|---|---|---|
+| **Shape** | 24 discrete skills you pick from | 1 orchestrator + 6 stage references |
+| **Gives you** | Ready-made workflows, off the shelf | The wiring: stage→discipline→stage, gates, re-entry |
+| **Tools** | Encodes a stack | Binds to *your* stack via an onboarding interview |
+| **Growth** | Full surface on day one | Grows per-area on first contact |
+| **Best when** | You want breadth now, low setup | You want one closed lifecycle fitted to your repo |
+| **Together** | — | Can route to a library's skills as area skills |
+
+**When a library is the better call:** if you want batteries-included skills to drop in and
+use in five minutes, install a library — `agent-skills` is excellent for exactly that.
+`app-sdlc` asks for an upfront onboarding interview and grows deliberately; the payoff is a
+lifecycle fitted to your repo and tools, not a generic one. It's a framework you invest in,
+not a pack you consume.
+
 ---
 
 ## The lifecycle in one picture
