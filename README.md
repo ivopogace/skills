@@ -1,4 +1,4 @@
-# claude-skills
+# skills
 
 > Replaces a pile of loosely-connected, install-and-forget skills with a single orchestrated
 > lifecycle that wires each stage to the right discipline and binds to *your* actual tools and
@@ -57,12 +57,10 @@ the intent, update the ticket/spec) before more planning or code; fresh, well-fo
 flows straight through. Review/quality **findings re-enter at Implement** only when there
 are findings.
 
-`app-sdlc` is a **tool-agnostic orchestrator**: it says *which discipline drives each stage
-and how the stages connect*, without hard-coding tools. Every tool is a slot in a **13-slot
-tooling map** (`<VCS>`, `<CI>`, `<TRACKER>`, `<QUALITY>`, `<DOCS>`, `<MIGRATIONS>`,
-`<DEPLOY>`, `<DESIGN>`, `<AREAS>`, `<NOTIFY>`, `<TESTS>`, `<E2E>`, `<REGISTRY>`). Adopting
-it on a project starts with an **onboarding interview** that fills the map from repo
-evidence + human decisions; from then on every `<TOKEN>` reads as the chosen tool.
+Every tool in the diagram is a slot in the **13-slot tooling map** (`<VCS>`, `<CI>`,
+`<TRACKER>`, `<QUALITY>`, `<DOCS>`, `<MIGRATIONS>`, `<DEPLOY>`, `<DESIGN>`, `<AREAS>`,
+`<NOTIFY>`, `<TESTS>`, `<E2E>`, `<REGISTRY>`), bound to a concrete tool by the onboarding
+interview that fills the map from repo evidence + human decisions.
 
 ## The stages
 
