@@ -97,7 +97,7 @@ means this paragraph.
 | **PR** | Merge latest mainline into the branch first — integrate with full discipline (routing gate for what the integration touches) — then open the PR on `<VCS>` | — | `<VCS>` |
 | **Review** | **Mandatory gate** on the PR diff — procedure: `references/pr-gates.md` §1. Findings re-enter at Implement | §Review | `<VCS>` + review tooling |
 | **Quality gate** | **Mandatory gate.** A green gate is necessary, not sufficient — pull the actual new-issue list from `<QUALITY>` and clear every entry: `references/pr-gates.md` §2. (`<QUALITY>` = none → the review gate absorbs this, explicitly) | §Quality gate | `<QUALITY>` |
-| **Merge** | Only after CI green + review gate run + quality list cleared → merge, then the close-out checklist: `references/pr-gates.md` §3 | — | `<VCS>` |
+| **Merge** | Only after CI green + review gate run + quality list cleared → merge (**squash commit by default** — one commit per ticket on the mainline, unless house conventions bind another method), then the close-out checklist: `references/pr-gates.md` §3 | — | `<VCS>` |
 | **Document** | Ticket documentation in `<DOCS>`, linked back from the ticket. **Unconditional** — part of every merged ticket's definition of done | §Document | `<DOCS>` |
 
 **Stage drivers grow; disciplines ship now.** The tool-independent core of each stage's

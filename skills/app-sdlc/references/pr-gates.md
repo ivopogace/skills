@@ -40,7 +40,9 @@ sibling audit, the spec table) are `references/stage-disciplines.md` §Review an
      or the PR.
 4. **Only then merge.** Merge is reached only when CI is green **and** the review gate
    has run **and** findings are resolved/deferred **and the fix round itself cleared the
-   loop.**
+   loop.** Merge method: **squash commit by default** — one commit per ticket on the
+   mainline, referencing the ticket ID — unless the project's house conventions bind a
+   different method (record any deviation in the tooling map).
 
 **Definition of done for a ticket:** the **spec committed** (rule 11 — source-of-intent,
 including any grill/implementation amendments) **and** CI green **and** review gate run
