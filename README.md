@@ -107,8 +107,18 @@ in 2026-07. Their last state is archived at tag `seeds-archive-2026-07-07`.
 
 ## Installing
 
+`app-sdlc` ships as a **tool-agnostic template**, not a ready-to-run bound instance — it
+carries the loop, gates, and stage disciplines, but no project-specific tools or area
+skills. Clone it, then **adopt it per project**: its onboarding interview fills the 13-slot
+tooling map from repo evidence, seeds the routing table, and grows the project's own skills
+on first contact. Every `<TOKEN>` stays a placeholder until you bind it.
+
 Clone into `~/.claude/skills/`:
 
 ```bash
 git clone https://github.com/ivopogace/skills.git ~/.claude/skills
 ```
+
+Then run the onboarding interview (see
+[`references/onboarding-interview.md`](app-sdlc/references/onboarding-interview.md)) in a
+target project to bind the template to that repo.
