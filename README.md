@@ -1,5 +1,9 @@
 # claude-skills
 
+> Replaces a pile of loosely-connected, install-and-forget skills with a single orchestrated
+> lifecycle that wires each stage to the right discipline and binds to *your* actual tools and
+> workflow instead of assuming a fixed stack.
+
 Personal [Claude Code](https://claude.com/claude-code) skills used by Ivo Pogace. Skills
 install under `~/.claude/skills/` and are auto-discovered by Claude Code; each subdirectory
 is one skill with a `SKILL.md` (YAML frontmatter: `name`, `description`).
