@@ -1,0 +1,10 @@
+{
+  "name": "app-sdlc",
+  "description": "Tool-agnostic SDLC orchestrator: one lifecycle loop with mandatory CI, review, and quality gates, a 13-slot tooling map bound per project via an onboarding interview, and area skills that grow from real work.",
+  "author": {
+    "name": "Ivo Pogace"
+  },
+  "repository": "https://github.com/ivopogace/skills",
+  "license": "MIT",
+  "keywords": ["sdlc", "workflow", "process", "orchestrator", "skills"]
+}

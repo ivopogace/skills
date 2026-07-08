@@ -4,12 +4,13 @@
 > lifecycle that wires each stage to the right discipline and binds to *your* actual tools and
 > workflow instead of assuming a fixed stack.
 
-Personal [Claude Code](https://claude.com/claude-code) skills used by Ivo Pogace. Skills
-install under `~/.claude/skills/` and are auto-discovered by Claude Code; each subdirectory
-is one skill with a `SKILL.md` (YAML frontmatter: `name`, `description`).
+Personal [Claude Code](https://claude.com/claude-code) skills used by Ivo Pogace. The repo
+ships as a **Claude Code plugin** (and doubles as its own plugin marketplace): each
+subdirectory of `skills/` is one skill with a `SKILL.md` (YAML frontmatter: `name`,
+`description`), auto-discovered once the plugin is installed.
 
 Today this repo is effectively **one thing: the software development lifecycle** — the
-[`app-sdlc`](app-sdlc/SKILL.md) suite. The rest of this README describes that lifecycle.
+[`app-sdlc`](skills/app-sdlc/SKILL.md) suite. The rest of this README describes that lifecycle.
 
 ## What makes it different
 
@@ -113,13 +114,13 @@ yet), and hotfixes take lighter paths. The full ceremony is for real, sliceable 
 
 | File | Role |
 |---|---|
-| [`app-sdlc/SKILL.md`](app-sdlc/SKILL.md) | The orchestrator: tooling map, the loop, the rules, the skill-routing gate. |
-| [`references/onboarding-interview.md`](app-sdlc/references/onboarding-interview.md) | First act — fill the tooling map from repo evidence. |
-| [`references/stage-disciplines.md`](app-sdlc/references/stage-disciplines.md) | The tool-independent core of each stage (read per stage). |
-| [`references/ticket-intake-gate.md`](app-sdlc/references/ticket-intake-gate.md) | Grill an existing ticket against today's code before planning. |
-| [`references/pr-gates.md`](app-sdlc/references/pr-gates.md) | Review gate → quality gate → merge close-out + definition of done. |
-| [`references/release-deploy.md`](app-sdlc/references/release-deploy.md) | Off-loop batched-release runbook (human-gated). |
-| [`references/growing-area-skills.md`](app-sdlc/references/growing-area-skills.md) | How stage-driver and area skills grow, and the discover-before-create rule. |
+| [`skills/app-sdlc/SKILL.md`](skills/app-sdlc/SKILL.md) | The orchestrator: tooling map, the loop, the rules, the skill-routing gate. |
+| [`references/onboarding-interview.md`](skills/app-sdlc/references/onboarding-interview.md) | First act — fill the tooling map from repo evidence. |
+| [`references/stage-disciplines.md`](skills/app-sdlc/references/stage-disciplines.md) | The tool-independent core of each stage (read per stage). |
+| [`references/ticket-intake-gate.md`](skills/app-sdlc/references/ticket-intake-gate.md) | Grill an existing ticket against today's code before planning. |
+| [`references/pr-gates.md`](skills/app-sdlc/references/pr-gates.md) | Review gate → quality gate → merge close-out + definition of done. |
+| [`references/release-deploy.md`](skills/app-sdlc/references/release-deploy.md) | Off-loop batched-release runbook (human-gated). |
+| [`references/growing-area-skills.md`](skills/app-sdlc/references/growing-area-skills.md) | How stage-driver and area skills grow, and the discover-before-create rule. |
 
 `app-sdlc` is a **template**: it is the generalized skeleton lifted from a concrete,
 fully project-bound SDLC suite. It is adopted **per project** (its onboarding interview
@@ -130,19 +131,43 @@ here stays tool-agnostic while each project carries its own bound instance.
 
 `app-sdlc` ships as a **tool-agnostic template**, not a ready-to-run bound instance — it
 carries the loop, gates, and stage disciplines, but no project-specific tools or area
-skills. Clone it, then **adopt it per project**: its onboarding interview fills the 13-slot
-tooling map from repo evidence, seeds the routing table, and grows the project's own skills
-on first contact. Every `<TOKEN>` stays a placeholder until you bind it.
+skills. Install it, then **adopt it per project**: its onboarding interview fills the
+13-slot tooling map from repo evidence, seeds the routing table, and grows the project's
+own skills on first contact. Every `<TOKEN>` stays a placeholder until you bind it.
 
-Clone into `~/.claude/skills/`:
+### As a plugin (recommended)
 
-```bash
-git clone https://github.com/ivopogace/skills.git ~/.claude/skills
+The repo is its own plugin marketplace. In Claude Code:
+
+```
+/plugin marketplace add ivopogace/skills
+/plugin install app-sdlc@ivopogace-skills
 ```
 
-Then run the onboarding interview (see
-[`references/onboarding-interview.md`](app-sdlc/references/onboarding-interview.md)) in a
-target project to bind the template to that repo.
+Or non-interactively:
+
+```bash
+claude plugin marketplace add ivopogace/skills
+claude plugin install app-sdlc@ivopogace-skills
+```
+
+The skill is then available as `app-sdlc:app-sdlc` and triggers automatically from its
+description. `claude plugin marketplace update ivopogace-skills` pulls newer versions.
+
+### Manual (personal skills directory)
+
+Clone anywhere and copy (or symlink) the skill into `~/.claude/skills/`:
+
+```bash
+git clone https://github.com/ivopogace/skills.git
+cp -r skills/skills/app-sdlc ~/.claude/skills/app-sdlc
+```
+
+### Then: adopt per project
+
+Run the onboarding interview (see
+[`references/onboarding-interview.md`](skills/app-sdlc/references/onboarding-interview.md))
+in a target project to bind the template to that repo.
 
 ## License
 

@@ -1,0 +1,14 @@
+{
+  "name": "ivopogace-skills",
+  "owner": {
+    "name": "Ivo Pogace"
+  },
+  "description": "Personal Claude Code skills by Ivo Pogace",
+  "plugins": [
+    {
+      "name": "app-sdlc",
+      "source": "./",
+      "description": "Tool-agnostic SDLC orchestrator: one lifecycle loop with mandatory CI, review, and quality gates, a 13-slot tooling map bound per project via an onboarding interview, and area skills that grow from real work."
+    }
+  ]
+}
