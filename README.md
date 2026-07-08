@@ -59,11 +59,6 @@ closes the loop, and binds to **your** tools.
 
 ## The lifecycle in one picture
 
-![The app-sdlc lifecycle loop](assets/lifecycle-diagram.png)
-
-<details>
-<summary>Diagram source (Mermaid)</summary>
-
 ```mermaid
 flowchart LR
     RF[refine] --> TK[ticket] --> PL[plan] --> IM[implement] --> CI{CI gate}
@@ -74,8 +69,6 @@ flowchart LR
     PL -. stale plan: resume or mainline drift .-> RF
     MG -. release due .-> RD[release-deploy: off-loop, batches merged tickets]
 ```
-
-</details>
 
 **Solid = the path every ticket takes; dotted = conditional feedback.** The **stale-intent
 edges** fire when an existing **ticket** is stale (the intake-grill gate) *or* a **plan** is
