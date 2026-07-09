@@ -97,7 +97,8 @@ it"), and treat the first quality-shaped incident as the trigger to revisit the 
    - Each fix push re-triggers `<CI>` **and** the analysis — **re-check both before
      merging** (being small or post-green is not an exemption; re-entry rule).
 4. **Only then merge.** "CI green + reviewed + issue list cleared on every analysed
-   project," never "the gate went green."
+   project," never "the gate went green." Merge method as in §1.4: **squash commit by
+   default**, unless house conventions bind another method.
 
 ## 3. Merge close-out (mandatory — after the merge, before calling the ticket done)
 
