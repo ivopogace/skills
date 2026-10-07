@@ -1,5 +1,14 @@
 # app-sdlc
 
+> [!WARNING]
+> **Deprecated — no longer maintained.** This repo is superseded by Anthropic's
+> **Engineering** skill bundle (10 skills: standups, code review, architecture decisions,
+> incident response, technical docs), which covers this ground better and works with your
+> existing tools. Add it from claude.ai: **Settings → Skills → Engineering → Add**.
+> The content below is kept for reference only; the plugin and skill receive no further updates.
+> To remove an existing install: `claude plugin uninstall app-sdlc@ivopogace-skills` (or
+> `npx skills remove app-sdlc` if installed via the skills CLI).
+
 > Replaces a pile of loosely-connected, install-and-forget skills with a single orchestrated
 > lifecycle that wires each stage to the right discipline and binds to *your* actual tools and
 > workflow instead of assuming a fixed stack.
