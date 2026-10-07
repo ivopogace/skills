@@ -1,6 +1,6 @@
 {
   "name": "app-sdlc",
-  "description": "DEPRECATED — superseded by Claude Code's Engineering skill; no longer maintained. Tool-agnostic SDLC orchestrator: one lifecycle loop with mandatory CI, review, and quality gates, a 13-slot tooling map bound per project via an onboarding interview, and area skills that grow from real work.",
+  "description": "DEPRECATED — superseded by Anthropic's Engineering skill bundle (claude.ai Settings → Skills → Engineering); no longer maintained. Tool-agnostic SDLC orchestrator: one lifecycle loop with mandatory CI, review, and quality gates, a 13-slot tooling map bound per project via an onboarding interview, and area skills that grow from real work.",
   "author": {
     "name": "Ivo Pogace"
   },
